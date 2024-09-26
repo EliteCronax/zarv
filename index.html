@@ -42,20 +42,7 @@
             white-space: pre-wrap;
         }
         select {
-            margin-bottom: 10px;
-        }
-        .github-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #24292e;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .github-button:hover {
-            background-color: #2c3238;
+            margin-bottom: 10px;   
         }
     </style>
 </head>
@@ -73,6 +60,8 @@
     <button onclick="runCode()">Run Code</button>
     <h2>Output:</h2>
     <div id="output"></div>
+
+    <a class="github-button" href="https://github.com/elitecronax/zarv" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" aria-label="Star elitecronax/zarv on GitHub">Star</a>
 
     <script>
         const languageSelect = document.getElementById('languageSelect');
@@ -130,6 +119,8 @@
         }
 
         updatePlaceholder();
+
+        async defer src="https://buttons.github.io/buttons.js"
     </script>
 </body>
 </html>
