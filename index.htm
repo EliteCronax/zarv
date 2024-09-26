@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zarv</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #8A2BE2, #FF69B4, #4B0082);
+            color: white;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .gear-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .dark-mode {
+            background: #1a1a1a;
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Zarv</h1>
+        <p>Welcome to Zarv, a cool website with an awesome gradient background and dark mode feature!</p>
+        <p>Click the gear icon in the top-right corner to toggle dark mode.</p>
+    </div>
+    <div class="gear-icon" onclick="toggleDarkMode()">
+        <i class="fas fa-cog"></i>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.style.background = '#1a1a1a';
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #8A2BE2, #FF69B4, #4B0082)';
+            }
+        }
+    </script>
+</body>
+</html>
