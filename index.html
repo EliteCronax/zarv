@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Runner</title>
+    <title>Zarv</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,16 +22,52 @@
             min-height: 100px;
             white-space: pre-wrap;
         }
+        select {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Code Runner</h1>
+    <select id="codeSelector" onchange="loadSelectedCode()">
+        <option value="">Select an example...</option>
+        <option value="helloWorld">Hello World</option>
+        <option value="fibonacci">Fibonacci Sequence</option>
+        <option value="factorial">Factorial</option>
+    </select>
     <textarea id="codeInput" placeholder="Enter your JavaScript code here..."></textarea>
     <button onclick="runCode()">Run Code</button>
     <h2>Output:</h2>
     <div id="output"></div>
 
     <script>
+        const codeExamples = {
+            helloWorld: 'console.log("Hello, World!");',
+            fibonacci: `function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+for (let i = 0; i < 10; i++) {
+    console.log(fibonacci(i));
+}`,
+            factorial: `function factorial(n) {
+    if (n === 0 || n === 1) return 1;
+    return n * factorial(n - 1);
+}
+
+for (let i = 0; i < 10; i++) {
+    console.log(\`Factorial of \${i}: \${factorial(i)}\`);
+}`
+        };
+
+        function loadSelectedCode() {
+            const selector = document.getElementById('codeSelector');
+            const codeInput = document.getElementById('codeInput');
+            const selectedCode = codeExamples[selector.value];
+            codeInput.value = selectedCode || '';
+        }
+
         function runCode() {
             const code = document.getElementById('codeInput').value;
             const outputDiv = document.getElementById('output');
