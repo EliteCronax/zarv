@@ -11,6 +11,25 @@
             margin: 0 auto;
             padding: 20px;
         }
+        h1 {
+            font-size: 48px;
+            background: linear-gradient(to right, #800080, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            animation: gradient-run 5s linear infinite;
+            background-size: 200% 100%;
+        }
+        @keyframes gradient-run {
+            0% {
+                background-position: 100% 0;
+            }
+            100% {
+                background-position: -100% 0;
+            }
+        }
         textarea {
             width: 100%;
             height: 200px;
@@ -28,68 +47,75 @@
     </style>
 </head>
 <body>
-    <h1>Code Runner</h1>
-    <select id="codeSelector" onchange="loadSelectedCode()">
-        <option value="">Select an example...</option>
-        <option value="helloWorld">Hello World</option>
-        <option value="fibonacci">Fibonacci Sequence</option>
-        <option value="factorial">Factorial</option>
+    <h1>Zarv</h1>
+    <select id="languageSelect">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <option value="ruby">Ruby</option>
     </select>
-    <textarea id="codeInput" placeholder="Enter your JavaScript code here..."></textarea>
+    <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
     <button onclick="runCode()">Run Code</button>
     <h2>Output:</h2>
     <div id="output"></div>
 
     <script>
-        const codeExamples = {
-            helloWorld: 'console.log("Hello, World!");',
-            fibonacci: `function fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
+        const languageSelect = document.getElementById('languageSelect');
+        const codeInput = document.getElementById('codeInput');
+        const outputDiv = document.getElementById('output');
 
-for (let i = 0; i < 10; i++) {
-    console.log(fibonacci(i));
-}`,
-            factorial: `function factorial(n) {
-    if (n === 0 || n === 1) return 1;
-    return n * factorial(n - 1);
-}
+        languageSelect.addEventListener('change', updatePlaceholder);
 
-for (let i = 0; i < 10; i++) {
-    console.log(\`Factorial of \${i}: \${factorial(i)}\`);
-}`
-        };
-
-        function loadSelectedCode() {
-            const selector = document.getElementById('codeSelector');
-            const codeInput = document.getElementById('codeInput');
-            const selectedCode = codeExamples[selector.value];
-            codeInput.value = selectedCode || '';
+        function updatePlaceholder() {
+            const language = languageSelect.value;
+            codeInput.placeholder = `Enter your ${language} code here...`;
         }
 
         function runCode() {
-            const code = document.getElementById('codeInput').value;
-            const outputDiv = document.getElementById('output');
+            const language = languageSelect.value;
+            const code = codeInput.value;
             outputDiv.innerHTML = '';
 
+            switch (language) {
+                case 'javascript':
+                    runJavaScript(code);
+                    break;
+                case 'python':
+                case 'cpp':
+                case 'java':
+                case 'ruby':
+                    simulateExecution(language, code);
+                    break;
+                default:
+                    outputDiv.innerHTML = 'Unsupported language';
+            }
+        }
+
+        function runJavaScript(code) {
             try {
-                // Redirect console.log to our output div
                 const originalLog = console.log;
                 console.log = function(...args) {
                     outputDiv.innerHTML += args.join(' ') + '\n';
                     originalLog.apply(console, args);
                 };
 
-                // Run the code
                 eval(code);
 
-                // Restore original console.log
                 console.log = originalLog;
             } catch (error) {
                 outputDiv.innerHTML = 'Error: ' + error.message;
             }
         }
+
+        function simulateExecution(language, code) {
+            outputDiv.innerHTML = `Simulated ${language.toUpperCase()} output:\n\n`;
+            outputDiv.innerHTML += `Executing the following ${language.toUpperCase()} code:\n\n`;
+            outputDiv.innerHTML += code + '\n\n';
+            outputDiv.innerHTML += 'Note: Actual execution is not implemented for this language in the browser.';
+        }
+
+        updatePlaceholder();
     </script>
 </body>
 </html>
